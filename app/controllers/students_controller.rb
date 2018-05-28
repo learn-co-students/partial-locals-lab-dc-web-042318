@@ -1,4 +1,13 @@
 class StudentsController < ApplicationController
+  def index
+    if params[:query]
+      @students = Student.search(params[:query])
+    else
+      @students = Student.all
+    end
+    render 'index'
+  end
+
   def new
     @student = Student.new
   end
@@ -21,7 +30,8 @@ class StudentsController < ApplicationController
   end
 
   def index
-    @students = Student.all
+    @students =  Student.search(params[:query])
+    render :index
   end
 
   def student_params
